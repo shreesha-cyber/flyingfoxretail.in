@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Industrial plot, Patratu, Jharkhand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: plain, factual, like a site notice that a plant manager reads in one minute.
+   IDEA: a land plan pinned to a site board: the plot drawn from above, with its roads and gates.
+   PICTURE: the plot plan in SVG, buildings in the blue of the real building, earth-red soil edges.
+   COLOUR and TYPE: white ground, deep blue band, building blue, soil red accent; Barlow Condensed for signs, Barlow for text.
+   LAYOUT: blue hero with title and plan, then facts, photos, uses, location, terms, contact. */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#0e171d);--ink:light-dark(#14222c,#e7eef2);--soft:light-dark(#4f616c,#a9b9c3);
+--band:light-dark(#123a52,#0b2636);--blue:#3a9bd5;--blue2:light-dark(#e6f2fa,#13283a);
+--soil:light-dark(#a9532a,#e08a5c);--land:light-dark(#e4ecd9,#22301f);--line:light-dark(#d5dde2,#26343d);--card:light-dark(#f4f7f9,#152129)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 Barlow,system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"Barlow Condensed",Barlow,sans-serif;font-weight:700;line-height:1.05;margin:0;text-wrap:balance}
+h1{font-size:clamp(36px,6vw,54px)}h2{font-size:clamp(28px,4vw,38px);margin-bottom:14px}h3{font-size:22px}
+p{margin:0 0 12px;max-width:68ch}
+a{color:inherit}
+.band{padding:clamp(28px,4vw,60px) max(5vw,16px)}
+.wrap{max-width:1180px;margin:0 auto}
+.top{background:var(--band);color:#fff;padding:12px max(5vw,16px)}
+.top .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;justify-content:space-between}
+.co{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:19px}
+nav{display:flex;flex-wrap:wrap;gap:4px 16px}nav a{text-decoration:none;font-size:15px;opacity:.9;padding:6px 0}nav a:hover{opacity:1;text-decoration:underline}
+.hero{background:var(--band);color:#fff;padding-top:12px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(20px,4vw,48px);align-items:center}
+.where{color:#bfe0f3;font-size:18px;margin:12px 0 22px}
+.nums{display:flex;flex-wrap:wrap;gap:16px 28px;margin-bottom:22px}
+.num{flex:0 1 auto;border-top:3px solid var(--blue);padding-top:8px}
+.num b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:clamp(28px,3.4vw,38px);line-height:1;white-space:nowrap}
+.num span{font-size:14px;color:#cfe3ef}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;background:var(--blue);color:#06202f;font-weight:600;border-radius:6px;text-decoration:none}
+.btn:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid #ffd166;outline-offset:2px}
+.plan{background:#f7f4ee;border-radius:8px;padding:10px;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.plan svg{display:block;width:100%;height:auto}
+.plan p{color:#5a646b;font-size:13px;margin:4px 6px 2px;max-width:none}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,48px)}
+ul.facts{list-style:none;padding:0;margin:0}
+ul.facts li{padding:12px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:11em minmax(0,1fr);gap:12px}
+ul.facts li b{color:var(--soil);font-weight:600}
+.legend{list-style:none;padding:0;margin:0;columns:2;column-gap:24px;font-size:15px}
+.legend li{break-inside:avoid;padding:5px 0;display:flex;gap:10px;align-items:baseline}
+.legend i{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid var(--ink);font-style:normal;font-size:13px;font-weight:600;display:inline-grid;place-items:center}
+.gal{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
+.gal figure{flex:0 0 min(78vw,420px);margin:0;scroll-snap-align:start}
+.gal img{width:100%;aspect-ratio:472/271;object-fit:cover;border-radius:6px;display:block}
+.gal figcaption{font-size:14px;color:var(--soft);margin-top:6px}
+.galbar{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.galbar h2{margin:0}
+.arrows{display:flex;gap:8px}
+.arrows button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:20px;cursor:pointer}
+.uses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.use{background:var(--card);border-radius:8px;padding:20px}
+.use h3{margin-bottom:8px}.use p{font-size:16px}.use ul{margin:0;padding-left:20px;font-size:16px}
+.alt{background:var(--blue2)}
+.dist{display:grid;gap:12px;margin:8px 0 20px}
+.row{display:grid;grid-template-columns:9em minmax(0,1fr) 4.5em;gap:10px;align-items:center}
+.bar{height:14px;background:var(--line);border-radius:7px;overflow:hidden}.bar i{display:block;height:100%;background:var(--soil);border-radius:7px}
+.row b{text-align:right;white-space:nowrap}
+.near{list-style:none;padding:0;margin:0}
+.near li{padding:10px 0;border-bottom:1px solid var(--line)}
+.near b{display:block}
+.terms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 32px;list-style:none;padding:0;margin:0}
+.terms li{padding-left:28px;position:relative}
+.terms li::before{content:"";position:absolute;left:0;top:.45em;width:14px;height:14px;background:var(--blue);border-radius:3px}
+.contact{background:var(--band);color:#fff}
+.contact .grid2{align-items:start}
+.contact dl{margin:0;display:grid;grid-template-columns:7em minmax(0,1fr);gap:10px 16px}
+.contact dt{color:#9fc6dc}.contact dd{margin:0}
+.contact a{color:#fff}
+.small{font-size:14px;color:var(--soft)}
+.contact .small{color:#9fc6dc}
+footer{padding:18px max(5vw,16px);font-size:14px;color:var(--soft)}
+@media(max-width:860px){.hero .wrap,.grid2{grid-template-columns:minmax(0,1fr)}.uses{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){ul.facts li{grid-template-columns:minmax(0,1fr);gap:2px}.legend{columns:1}.terms{grid-template-columns:minmax(0,1fr)}.row{grid-template-columns:6.5em minmax(0,1fr) 4em}.contact dl{grid-template-columns:minmax(0,1fr);gap:2px}.contact dd{margin-bottom:10px}.nums{gap:12px 20px}}
+@media(prefers-reduced-motion:no-preference){.plan .b{animation:rise .7s ease-out both}.plan .b:nth-of-type(2){animation-delay:.1s}@keyframes rise{from{opacity:0;transform:translateY(12px)}}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="co">Flyingfox Retail and Consultancy Services Private Limited</div>
+  <nav aria-label="Sections"><a href="#site">The site</a><a href="#photos">Photos</a><a href="#uses">Uses</a><a href="#location">Location</a><a href="#contact">Contact</a></nav>
+</div></header>
+
+<section class="hero band"><div class="wrap">
+  <div>
+    <h1>Industrial plot with buildings, ready to use</h1>
+    <p class="where">Patratu Industrial Area, District Ramgarh, Jharkhand. Close to Ranchi, Jharkhand and Ramgarh, Jharkhand.</p>
+    <div class="nums">
+      <div class="num"><b>1.5 acres</b><span>65,340 sq ft plot</span></div>
+      <div class="num"><b>16,000 sq ft</b><span>built-up, about</span></div>
+      <div class="num"><b>2 roads</b><span>on two sides</span></div>
+    </div>
+    <p>The plot is in a notified JIADA industrial area. It has a boundary wall, a two-storey building, sheds and open land. It is available on lease, as a whole or in part, or for contract manufacturing.</p>
+    <a class="btn" href="#contact">Arrange a site visit</a>
+  </div>
+  <figure class="plan" style="margin:0">
+    <svg viewBox="60 140 1040 990" role="img" aria-label="Plan of the plot from above, with roads on the north-west and south-east sides, three gates and the buildings">
+      <defs><pattern id="hatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="14" stroke="#b9c8a8" stroke-width="3"/></pattern></defs>
+      <line x1="80" y1="520" x2="470" y2="143" stroke="#c9c9c9" stroke-width="80"/>
+      <line x1="1070" y1="720" x2="780" y2="1115" stroke="#c9c9c9" stroke-width="80"/>
+      <text x="210" y="402" font-size="34" font-weight="600" fill="#6b6b6b" transform="rotate(-44 210 402)" font-family="Barlow,sans-serif">ROAD</text>
+      <text x="895" y="968" font-size="34" font-weight="600" fill="#6b6b6b" transform="rotate(-54 895 968)" font-family="Barlow,sans-serif">ROAD</text>
+      <polygon points="455,215 545,340 808,662 968,750 738,1062 300,650 296,654 152,508" fill="#e3ecd6" stroke="#2b2b2b" stroke-width="7" stroke-linejoin="round"/>
+      <polygon points="455,215 545,340 808,662 968,750 738,1062 300,650 296,654 152,508" fill="url(#hatch)" opacity=".35"/>
+      <g class="b"><polygon points="617,580 775,685 748,735 640,665 572,717 505,672 548,612 578,630" fill="#3a9bd5" stroke="#173e55" stroke-width="4"/></g>
+      <g class="b"><polygon points="875,800 910,833 738,1062 700,1025 800,925 808,890" fill="#3a9bd5" stroke="#173e55" stroke-width="4"/></g>
+      <polygon points="548,433 572,446 545,500 518,486" fill="#c98f5c" stroke="#3b2a1d" stroke-width="3"/>
+      <polygon points="550,572 577,585 565,612 537,597" fill="#b9b48f" stroke="#3b3b2a" stroke-width="3"/>
+      <polygon points="512,587 526,593 514,615 501,608" fill="#b9b48f" stroke="#3b3b2a" stroke-width="3"/>
+      <g fill="#9b7656" stroke="#3b2a1d" stroke-width="3"><polygon points="473,751 489,760 478,783 462,772"/><polygon points="570,836 590,852 579,868 559,852"/><polygon points="670,920 693,938 682,955 660,938"/></g>
+      <g fill="#9fd3ea" stroke="#2a5a70" stroke-width="3"><polygon points="618,502 640,526 620,545 596,520"/><polygon points="895,720 945,745 935,762 886,738"/></g>
+      <polygon points="948,742 968,750 952,778 932,768" fill="#c98f5c" stroke="#3b2a1d" stroke-width="3"/>
+      <g stroke="#d7262b" stroke-width="12" stroke-linecap="round"><line x1="148" y1="510" x2="170" y2="486"/><line x1="590" y1="395" x2="605" y2="414"/><line x1="912" y1="832" x2="938" y2="797"/></g>
+      <g font-family="Barlow,sans-serif" font-size="30" font-weight="600" fill="#b3201f"><text x="90" y="470">Gate</text><text x="618" y="388">Gate</text><text x="940" y="860">Gate</text></g>
+      <text x="410" y="545" font-family="Barlow,sans-serif" font-size="36" font-weight="700" fill="#3f6b2c">Open land</text>
+      <g font-family="Barlow,sans-serif" font-size="26" font-weight="700" text-anchor="middle">
+        <g fill="#fff" stroke="#222" stroke-width="3"><circle cx="642" cy="652" r="20"/><circle cx="812" cy="910" r="20"/><circle cx="546" cy="464" r="20"/><circle cx="510" cy="560" r="20"/><circle cx="455" cy="798" r="20"/><circle cx="648" cy="510" r="20"/></g>
+        <g fill="#222"><text x="642" y="661">1</text><text x="812" y="919">2</text><text x="546" y="473">3</text><text x="510" y="569">4</text><text x="455" y="807">5</text><text x="648" y="519">6</text></g>
+      </g>
+      <g transform="translate(1010 250)"><path d="M0 -70 L18 -30 L0 -38 L-18 -30 Z" fill="#222"/><line x1="0" y1="-38" x2="0" y2="40" stroke="#222" stroke-width="6"/><text x="0" y="-82" font-family="Barlow,sans-serif" font-size="34" font-weight="700" text-anchor="middle" fill="#222">N</text></g>
+    </svg>
+    <p>Plan of the plot. Approximate, not to scale.</p>
+  </figure>
+</div></section>
+
+<section id="site" class="band"><div class="wrap grid2">
+  <div>
+    <h2>The site</h2>
+    <ul class="facts">
+      <li><b>Plot area</b><span>1.5 acres (about 6,070 m², 65,340 sq ft)</span></li>
+      <li><b>Built-up area</b><span>About 16,000 sq ft (1,490 m²) in a two-storey building and sheds</span></li>
+      <li><b>Boundary</b><span>Boundary wall complete, with three gates</span></li>
+      <li><b>Road access</b><span>Road on two sides, so trucks can enter and leave easily</span></li>
+      <li><b>Sheds</b><span>At ground level, 16 ft high, with open land around them for stacking and forklifts</span></li>
+      <li><b>Water</b><span>Two water tanks on site. The area has ample water.</span></li>
+      <li><b>Land</b><span>Allotted by JIADA in a notified industrial area</span></li>
+    </ul>
+  </div>
+  <div>
+    <h2>What is on the plan</h2>
+    <ul class="legend">
+      <li><i>1</i>Main building (L-shaped, two storeys)</li>
+      <li><i>2</i>Building along the south-east wall</li>
+      <li><i>3</i>Building near the north-east gate</li>
+      <li><i>4</i>Store room and small room</li>
+      <li><i>5</i>Small sheds (3)</li>
+      <li><i>6</i>Water tanks (2)</li>
+    </ul>
+    <p class="small" style="margin-top:14px">We can change the layout and add a loading dock to suit the user. A detailed site layout with side lengths is available on request.</p>
+  </div>
+</div></section>
+
+<section id="photos" class="band alt"><div class="wrap">
+  <div class="galbar"><h2>Photos of the plot</h2>
+    <div class="arrows"><button type="button" id="prev" aria-label="Previous photo">‹</button><button type="button" id="next" aria-label="Next photo">›</button></div>
+  </div>
+  <div class="gal" id="gal" tabindex="0" aria-label="Photo gallery">
+    <figure><img src="p1.jpg" alt="Boundary wall along the road outside the plot" loading="lazy"><figcaption>Boundary wall along the road</figcaption></figure>
+    <figure><img src="p2.jpg" alt="Gate and open yard inside the plot" loading="lazy"><figcaption>Gate and open yard</figcaption></figure>
+    <figure><img src="p3.jpg" alt="The blue two-storey building with an outside stair" loading="lazy"><figcaption>The two-storey building</figcaption></figure>
+    <figure><img src="p4.jpg" alt="Open land inside the boundary wall" loading="lazy"><figcaption>Open land inside the wall</figcaption></figure>
+    <figure><img src="p5.jpg" alt="Paved road inside the plot beside a row of sheds" loading="lazy"><figcaption>Paved road and sheds</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="uses" class="band"><div class="wrap">
+  <h2>What the plot suits</h2>
+  <p>We want to work with established companies. We can lease the site, or our company can set up and run a unit for you.</p>
+  <div class="uses" style="margin-top:20px">
+    <div class="use"><h3>Warehouse or depot</h3><p>Lease the sheds and open land as a C&amp;F depot, godown or stock yard for Jharkhand.</p><ul><li>FMCG and consumer goods</li><li>Animal feed and farm inputs</li><li>Building materials and heavy goods</li></ul></div>
+    <div class="use"><h3>Contract manufacturing</h3><p>Our company sets up and runs a unit with its own capital and bank finance, and makes products to your recipe and quality standards.</p><ul><li>Food, atta, besan and spices</li><li>Water and beverages</li><li>Cattle, poultry and fish feed</li></ul></div>
+    <div class="use"><h3>Hospitality</h3><p>Patratu is a tourist area, with Patratu Dam and the Patratu Lake Resort close by. The site can also suit a wellness centre or a banquet cum resort.</p></div>
+  </div>
+</div></section>
+
+<section id="location" class="band alt"><div class="wrap grid2">
+  <div>
+    <h2>Location and road links</h2>
+    <p>Industrial Plot No. N.S., Patratu Industrial Area, Village Uchringa, Thana No. 14 (Patratu), District Ramgarh, Jharkhand 829119.</p>
+    <div class="dist" aria-label="Distances by road">
+      <div class="row"><span>Ramgarh, Jharkhand</span><div class="bar"><i style="width:75%"></i></div><b>21 km</b></div>
+      <div class="row"><span>Ranchi, Jharkhand</span><div class="bar"><i style="width:100%"></i></div><b>28 km</b></div>
+    </div>
+    <p><a class="btn" href="https://www.google.com/maps?q=23.6128067,85.2777229" target="_blank" rel="noopener">Open the plot in Google Maps</a></p>
+    <p class="small">Map pin: 23.6128, 85.2777. Distances from the Ramgarh district website.</p>
+  </div>
+  <div>
+    <h2>Nearby</h2>
+    <ul class="near">
+      <li><b>Patratu Dam</b>A large reservoir close to the plot. Water supply in the area is ample.</li>
+      <li><b>Patratu railway station</b>The plot is near the railway.</li>
+      <li><b>Large units in the area</b>PVUNL power plant, UltraTech Cement and a large dairy plant.</li>
+      <li><b>Next to the plot</b>Royal Lush resort on one side, and OP Jindal Community College (an ITI) behind.</li>
+    </ul>
+  </div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <h2>Terms</h2>
+  <ul class="terms">
+    <li>You can take the whole plot or a part of it.</li>
+    <li>We agree the rent and the term with each company.</li>
+    <li>For a good rate, we can change the layout and add loading docks.</li>
+    <li>You can see the site on any day that suits you.</li>
+  </ul>
+</div></section>
+
+<section id="contact" class="band contact"><div class="wrap grid2">
+  <div>
+    <h2>Contact</h2>
+    <p>Write or call to arrange a site visit or to ask for the site layout.</p>
+  </div>
+  <dl>
+    <dt>Name</dt><dd>CA Shreekant Sharma, Director</dd>
+    <dt>Company</dt><dd>Flyingfox Retail and Consultancy Services Private Limited</dd>
+    <dt>Mobile</dt><dd><a href="tel:+918797747924">8797747924</a> / <a href="tel:+919570644446">9570644446</a></dd>
+    <dt>Email</dt><dd><a href="mailto:info@flyingfoxretail.in">info@flyingfoxretail.in</a></dd>
+    <dt>Office</dt><dd>Plot #123, Road #1, Basant Vihar Colony, Harmu Road, Sahjanand Chowk, Ranchi, Jharkhand 834002</dd>
+  </dl>
+</div></section>
+
+<footer><div class="wrap">Flyingfox Retail and Consultancy Services Private Limited. Plot at Patratu Industrial Area, District Ramgarh, Jharkhand.</div></footer>
+
+<script>
+{
+  const g=document.getElementById('gal');
+  const step=d=>{const f=g.querySelector('figure');const w=f?f.getBoundingClientRect().width+12:300;g.scrollBy({left:d*w,behavior:'smooth'})};
+  document.getElementById('prev').addEventListener('click',()=>step(-1));
+  document.getElementById('next').addEventListener('click',()=>step(1));
+  g.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'){e.preventDefault();step(-1)}if(e.key==='ArrowRight'){e.preventDefault();step(1)}});
+}
+</script>
+</body>
+</html>
